@@ -15,6 +15,9 @@ const styles = {
     },
     input: {
         marginRight: '1rem'
+    },
+    strong: {
+        marginRight: '1rem'
     }
 }
 
@@ -24,7 +27,7 @@ const classes = []
 if (todo.completed){
     classes.push('done')
 }
-return(
+return (
         <li style={styles.li}>
             <span className={classes.join(' ')}>
                 <input 
@@ -35,9 +38,10 @@ return(
                 />
                 <strong>{index + 1}</strong>
                 &nbsp;
-                {todo.title}
+                <strong style={styles.strong}>{todo.title}</strong>
+                <small>{new Date().toLocaleDateString()}</small>
             </span>
-            <button className='rm' onClick={removeTodo.bind(null, todo.id)}>&times;</button>
+            <button className='btn btn-danger btn-sm' onClick={removeTodo.bind(null, todo.id)}>&times;</button>
         </li>
     )
 }
