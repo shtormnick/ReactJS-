@@ -3,6 +3,11 @@ import TodoList from './Todo/TodoList'
 import Context from './context'
 import Loader from './Loader'
 import Modal from './Modal/Modal'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {Home} from './Pages/Home'
+import {About} from './Pages/About'
+import { Navbar } from './Components/Navbar'
+
 
 const AddTodo = React.lazy(() => new Promise(resolve =>{
   setTimeout(() => {
@@ -55,22 +60,29 @@ function App() {
   }
 
   return (
-    <Context.Provider value={{removeTodo}}>
-      <div className="wrapper">
-        <h1>React Tutorial</h1>
-        <Modal />
-
-        <React.Suspense fallback={<p>Loading....</p>}>
-          <AddTodo  onCreate={addTodo} />
-        </React.Suspense>
-        {loading && <Loader/>}
-        {todos.length ? (
-          <TodoList todos={todos} onToggle={toggleTodo} /> 
-        ) : loading ? null : (
-          <p>No todos!</p>
-        )}
-      </div>
-    </Context.Provider>
+    <BrowserRouter>
+    <Navbar />
+      <Context.Provider value={{removeTodo}}>
+        <div className="container pt-4">
+          <Switch>
+            <Route path={'/'} exact component={Home} />
+            <Route path={'/about'} component={About} />
+          </Switch>
+          <div className="wrapper">
+            <Modal />
+            <React.Suspense fallback={<p>Loading....</p>}>
+              <AddTodo  onCreate={addTodo} />
+            </React.Suspense>
+            {loading && <Loader/>}
+            {todos.length ? (
+              <TodoList todos={todos} onToggle={toggleTodo} /> 
+            ) : loading ? null : (
+              <p>No todos!</p>
+            )}
+          </div>
+        </div>
+      </Context.Provider>
+    </BrowserRouter>
   );
 }
 
