@@ -8,6 +8,7 @@ import {Home} from './Pages/Home'
 import {About} from './Pages/About'
 import { Navbar } from './Components/Navbar'
 import { Alert } from './Components/Alert'
+import {AlertState} from './Context/Alert/AlertState'
 
 
 const AddTodo = React.lazy(() => new Promise(resolve =>{
@@ -61,30 +62,32 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Context.Provider value={{removeTodo}}>
-        <div className="container pt-4">
-          <Alert />
-          <Switch>
-            <Route path={'/'} exact component={Home} />
-            <Route path={'/about'} component={About} />
-          </Switch>
-          <div className="wrapper">
-            <Modal />
-            <React.Suspense fallback={<p>Loading....</p>}>
-              <AddTodo  onCreate={addTodo} />
-            </React.Suspense>
-            {loading && <Loader/>}
-            {todos.length ? (
-              <TodoList todos={todos} onToggle={toggleTodo} /> 
-            ) : loading ? null : (
-              <p>No todos!</p>
-            )}
+    <AlertState>
+      <BrowserRouter>
+        <Navbar />
+        <Context.Provider value={{removeTodo}}>
+          <div className="container pt-4">
+            <Alert />
+            <Switch>
+              <Route path={'/'} exact component={Home} />
+              <Route path={'/about'} component={About} />
+            </Switch>
+            <div className="wrapper">
+              <Modal />
+              <React.Suspense fallback={<p>Loading....</p>}>
+                <AddTodo  onCreate={addTodo} />
+              </React.Suspense>
+              {loading && <Loader/>}
+              {todos.length ? (
+                <TodoList todos={todos} onToggle={toggleTodo} /> 
+              ) : loading ? null : (
+                <p>No todos!</p>
+              )}
+            </div>
           </div>
-        </div>
-      </Context.Provider>
-    </BrowserRouter>
+        </Context.Provider>
+      </BrowserRouter>
+    </AlertState>
   );
 }
 
