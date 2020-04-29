@@ -8,7 +8,7 @@ export const AlertState = ({children}) => {
     const show = (text, type = 'warning') => {
         dispatch({
             type: SHOW_ALERT,
-            payload:{text, type}
+            payload: {text, type}
         })
     }
 
