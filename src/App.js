@@ -1,8 +1,4 @@
 import React, {useEffect} from 'react'
-import TodoList from './Todo/TodoList'
-import Context from './context'
-import Loader from './Loader'
-import Modal from './Modal/Modal'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import {Home} from './Pages/Home'
 import {About} from './Pages/About'
