@@ -5,26 +5,29 @@ import {About} from './Pages/About'
 import { Navbar } from './Components/Navbar'
 import { Alert } from './Components/Alert'
 import {AlertState} from './Context/Alert/AlertState'
+import { FirebaseState } from './Context/FireBase/FirebaseState'
 
 
 function App() {
 
 
   return (
-    <AlertState>
-      <BrowserRouter>
-        <Navbar />
-          <div className="container pt-4">
-            <Alert />
-            <Switch>
-              <Route path={'/'} exact component={Home} />
-              <Route path={'/about'} component={About} />
-            </Switch>
-            <div className="wrapper">
+   <FirebaseState>
+      <AlertState>
+        <BrowserRouter>
+          <Navbar />
+            <div className="container pt-4">
+              <Alert />
+              <Switch>
+                <Route path={'/'} exact component={Home} />
+                <Route path={'/about'} component={About} />
+              </Switch>
+              <div className="wrapper">
+              </div>
             </div>
-          </div>
-      </BrowserRouter>
-    </AlertState>
+        </BrowserRouter>
+      </AlertState>
+    </FirebaseState>
   );
 }
 
