@@ -2,7 +2,7 @@ import React, { useState, useContext} from 'react'
 import PropTypes from 'prop-types'
 import { AlertContext } from '../Context/Alert/alertContext'
 import { FirebaseContext } from '../Context/FireBase/firebaseContext'
-import TodoItem from './TodoItem'
+
 
 function useInputValue (defaultValue = '') {
     const [value, setValue] = useState(defaultValue)
@@ -26,7 +26,7 @@ function AddTodo({onCreate}){
         event.preventDefault()
         
         if (input.value().trim()) {
-            firebase.addNote(value.trim).then(() =>{
+            firebase.addNote(input.value.trim).then(() =>{
                 alert.show('Заметка была создана', 'success')
             }).catch(() => {
                 alert.show('Что-то пошло не так', 'danger')

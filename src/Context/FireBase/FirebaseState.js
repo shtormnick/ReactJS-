@@ -27,8 +27,13 @@ export const FirebaseState = ({children}) => {
             title, date: new Date().toJSON()
         }
 
-        const res = await axios.post(`${url}/todos.json`, todos)
-        console.log('addNote', res.date)
+        try{
+            const res = await axios.post(`${url}/todos.json`, todos)
+            console.log('addNote', res.date)
+        } catch (e){
+            throw new Error(e.massage)
+        }
+       
     }
 
     const removeNote = async id => {
@@ -43,7 +48,7 @@ export const FirebaseState = ({children}) => {
     return (
         <FirebaseContext.Provider value={{
             showloader, addNote, removeNote, fetchNotes,
-            loading: state. loading,
+            loading: state.loading,
             todos: state.todos
         }}>
             {children}

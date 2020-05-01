@@ -21,10 +21,10 @@ const styles = {
     }
 }
 
-function TodoItem({todo, index, onChange}){
+function TodoItem({note, index, onChange}){
 const {removeTodo} = useContext(Context)
 const classes = []
-if (todo.completed){
+if (note.completed){
     classes.push('done')
 }
 return (
@@ -32,22 +32,22 @@ return (
             <span className={classes.join(' ')}>
                 <input 
                 type="checkbox" 
-                checked = {todo.completed}
+                checked = {note.completed}
                 style={styles.input} 
-                onChange={() => onChange(todo.id)} 
+                onChange={() => onChange(note.id)} 
                 />
                 <strong>{index + 1}</strong>
                 &nbsp;
-                <strong style={styles.strong}>{todo.title}</strong>
+                <strong style={styles.strong}>{note.title}</strong>
                 <small>{new Date().toLocaleDateString()}</small>
             </span>
-            <button className='btn btn-danger btn-sm' onClick={removeTodo.bind(null, todo.id)}>&times;</button>
+            <button className='btn btn-danger btn-sm' onClick={removeTodo.bind(null, note.id)}>&times;</button>
         </li>
     )
 }
 
 TodoItem.propTypes = {
-    todo: PropTypes.object.isRequired,
+    note: PropTypes.object.isRequired,
     index: PropTypes.number,
     onChange: PropTypes.func.isRequired,
 }

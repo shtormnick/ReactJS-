@@ -10,16 +10,15 @@ const styles = {
     }
 }
 
-function TodoList(props) {
+const TodoList = ({props, notes}) => {
     return (
         <ul style={styles.ul}>
-            { props.todos.map((todo, index) => {
+            { props.notes.map((note, index) => {
                 return (
                     <TodoItem 
-                    todo={todo} 
-                    key={todo.id} 
+                    note={note} 
+                    key={note.id} 
                     index={index} 
-                    onChange={props.onToggle} 
                     />
                 )
             })
@@ -29,8 +28,7 @@ function TodoList(props) {
 }
 
 TodoList.propTypes = {
-    todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onToggle: PropTypes.func.isRequired
+    note: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default TodoList
