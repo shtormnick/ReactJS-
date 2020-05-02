@@ -4,7 +4,7 @@ import Modal from '../Modal/Modal'
 import Loader from '../Components/Loader'
 import {FirebaseContext} from '../Context/FireBase/firebaseContext'
 import AddTodo from '../Todo/AddTodo'
-import TodoList from '../Todo/TodoList'
+
 
 
 
@@ -28,7 +28,6 @@ export const Home = () => {
           </React.Suspense>
           {loading && <Loader/>}
           <hr />
-          <TodoList />
         </Context.Provider>
       </Fragment>
   )

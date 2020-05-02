@@ -24,6 +24,7 @@ const TodoList = ({props, notes}) => {
             })
             }
         </ul>
+        
     )
 }
 
