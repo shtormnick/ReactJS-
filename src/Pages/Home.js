@@ -3,16 +3,15 @@ import Context from '../context'
 import Modal from '../Modal/Modal'
 import Loader from '../Components/Loader'
 import {FirebaseContext} from '../Context/FireBase/firebaseContext'
-import AddTodo from '../Todo/AddTodo'
-
+import {Form} from '../Components/Form'
+import {Notes} from '../Components/Notes'
 
 
 
 
 export const Home = () => {
 
-  const {loading, note, fetchNotes, removeNote} = useContext(FirebaseContext)
-
+  const {loading, notes, fetchNotes, removeNote} = useContext(FirebaseContext)
 
   useEffect(() => {
       fetchNotes()
@@ -23,10 +22,13 @@ export const Home = () => {
       <Fragment>
         <Context.Provider >
           <Modal />
-          <AddTodo />
+          <Form />
           <React.Suspense fallback={<p>Loading....</p>}>
           </React.Suspense>
-          {loading && <Loader/>}
+          {loading 
+            ? <Loader/>
+            : <Notes notes={notes} onRemove={removeNote} />
+          }
           <hr />
         </Context.Provider>
       </Fragment>

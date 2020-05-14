@@ -2,13 +2,13 @@ import React, {useReducer} from 'react'
 import axios from 'axios'
 import {FirebaseContext} from './firebaseContext'
 import { firebaseReducer } from './firebaseReducer'
-import { SHOW_LOADER, REMOVE_NOTE } from '../types'
+import { SHOW_LOADER, REMOVE_NOTE, ADD_NOTE, FETCH_NOTES } from '../types'
 
 const url = process.env.REACT_APP_DB_URL
 
 export const FirebaseState = ({children}) => {
-    const initialState ={
-        todos: [],
+    const initialState = {
+        notes: [],
         loading: false
     }
     const [state, dispatch] = useReducer(firebaseReducer, initialState)
@@ -17,27 +17,38 @@ export const FirebaseState = ({children}) => {
 
     const fetchNotes = async () => {
         showloader()
-        const res = await axios.get(`${url}/todos.json`)
+        const res = await axios.get(`${url}/notes.json`)
         
+       const payload = Object.keys(res.data).map(key => {
+            return {
+                ...res.data[key],
+                id:key
+            }
+        })     
+        dispatch({type:FETCH_NOTES, payload})
         console.log('fetchNotes', res.data)
     }
 
     const addNote = async title => {
-        const todos = {
+        const note = {
             title, date: new Date().toJSON()
         }
 
-        try{
-            const res = await axios.post(`${url}/todos.json`, todos)
-            console.log('addNote', res.date)
-        } catch (e){
+        try {
+            const res = await axios.post(`${url}/notes.json`, note)
+            const payload = {
+                ...note,
+                id: res.data.name
+            }
+            
+            dispatch({ type: ADD_NOTE, payload})
+        }catch (e) {
             throw new Error(e.massage)
         }
-       
     }
 
     const removeNote = async id => {
-        await axios.delete(`${url}/todos/${id}.json`)
+        await axios.delete(`${url}/notes/${id}.json`)
 
         dispatch ({
             type: REMOVE_NOTE,
@@ -49,7 +60,7 @@ export const FirebaseState = ({children}) => {
         <FirebaseContext.Provider value={{
             showloader, addNote, removeNote, fetchNotes,
             loading: state.loading,
-            todos: state.todos
+            notes: state.notes
         }}>
             {children}
         </FirebaseContext.Provider>
