@@ -32,7 +32,7 @@ export const Form = () => {
             input.clear()
         } else {
             alert.show('Введите название заметки', 'success')
-        }     
+        }
     }
 
     return(

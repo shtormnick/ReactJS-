@@ -7,8 +7,6 @@ import {Form} from '../Components/Form'
 import {Notes} from '../Components/Notes'
 
 
-
-
 export const Home = () => {
 
   const {loading, notes, fetchNotes, removeNote} = useContext(FirebaseContext)

@@ -1,9 +1,18 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import { AlertContext } from '../Context/Alert/alertContext'
+
 
 export const Notes = ({notes, onRemove}) => {
+    const alert = useContext(AlertContext)
+
+    function buttonHandler(note) {
+        onRemove(note)
+        alert.show('Заметка была удалена', 'danger')
+    }
+
     return(
         <ul className='list-group'>
-            {notes && notes.map(note => (
+            { notes.map(note => (
                 <li 
                     className='list-group-item note'
                     key={note.id}
@@ -15,7 +24,7 @@ export const Notes = ({notes, onRemove}) => {
                     <button
                         type="button"
                         className="btn btn-outline-danger btn-sm"
-                        onClick={() => onRemove(note.id)}
+                        onClick={() => buttonHandler(note.id)}
                     >
                         &times;
                     </button>
