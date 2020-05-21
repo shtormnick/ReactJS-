@@ -1,8 +1,6 @@
-import React, { useState, useContext } from 'react'
-import PropTypes from 'prop-types'
+import React, { useContext, useState } from 'react'
 import { AlertContext } from '../Context/Alert/alertContext'
 import { FirebaseContext } from '../Context/FireBase/firebaseContext'
-
 
 function useInputValue(defaultValue = '') {
     const [value, setValue] = useState(defaultValue)
@@ -17,21 +15,20 @@ function useInputValue(defaultValue = '') {
     }
 }
 
-function AddTodo({ onCreate }) {
-    const input = useInputValue('')
+export const Form = () => {
+    const input = useInputValue()
     const alert = useContext(AlertContext)
     const firebase = useContext(FirebaseContext)
 
-    function submitHandler(event) {
+    const submitHandler = event => {
         event.preventDefault()
 
         if (input.value().trim()) {
-            firebase.addNote(input.value.trim).then(() => {
+            firebase.addNote(input.value().trim()).then(() => {
                 alert.show('Заметка была создана', 'success')
             }).catch(() => {
                 alert.show('Что-то пошло не так', 'danger')
             })
-            onCreate(input.value())
             input.clear()
         } else {
             alert.show('Введите название заметки', 'success')
@@ -39,19 +36,16 @@ function AddTodo({ onCreate }) {
     }
 
     return (
-        <form style={{ marginBottom: '1rem' }} onSubmit={submitHandler}>
-            <input {...input.bind}
-                type='text'
-                className='form-control'
-                placeholder='Введите название заметки'
-            />
-            <button type='submit'>Add todos</button>
+        <form onSubmit={submitHandler}>
+            <div className='form-group'>
+                <input
+                    {...input.bind}
+                    type='text'
+                    className='form-control'
+                    placeholder='Введите название заметки'
+
+                />
+            </div>
         </form>
     )
 }
-
-AddTodo.propTypes = {
-    onCreate: PropTypes.func.isRequired
-}
-
-export default AddTodo

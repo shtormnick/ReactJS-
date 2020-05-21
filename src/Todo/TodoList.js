@@ -3,34 +3,33 @@ import PropTypes from 'prop-types'
 import TodoItem from './TodoItem'
 
 const styles = {
-    ul:{
+    ul: {
         listStyle: 'none',
         margin: 0,
         padding: 0
     }
 }
 
-function TodoList(props) {
+const TodoList = ({ props, notes }) => {
     return (
         <ul style={styles.ul}>
-            { props.todos.map((todo, index) => {
+            {props.notes.map((note, index) => {
                 return (
-                    <TodoItem 
-                    todo={todo} 
-                    key={todo.id} 
-                    index={index} 
-                    onChange={props.onToggle} 
+                    <TodoItem
+                        note={note}
+                        key={note.id}
+                        index={index}
                     />
                 )
             })
             }
         </ul>
+
     )
 }
 
 TodoList.propTypes = {
-    todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onToggle: PropTypes.func.isRequired
+    note: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default TodoList

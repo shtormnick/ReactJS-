@@ -1,58 +1,34 @@
-import React, {Fragment, useEffect} from 'react'
-import AddTodo from '../Todo/AddTodo'
-import TodoList from '../Todo/TodoList'
+import React, { Fragment, useEffect, useContext } from 'react'
 import Context from '../context'
+import Modal from '../Modal/Modal'
+import Loader from '../Components/Loader'
+import { FirebaseContext } from '../Context/FireBase/firebaseContext'
+import { Form } from '../Components/Form'
+import { Notes } from '../Components/Notes'
 
 
 export const Home = () => {
-    const [todos, setTodos] = React.useState([])
-    const [loading, setLoading] = React.useState(true)
 
-    useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
-          .then(response => response.json())
-          .then(todos => {
-            setTimeout(() =>{
-              setTodos(todos)
-              setLoading(false)
-            }, 2000)
-          })
-      }, [])
+  const { loading, notes, fetchNotes, removeNote } = useContext(FirebaseContext)
 
-    function toggleTodo(id) {
-        setTodos(
-          todos.map(todo => {
-            if (todo.id === id) {
-              todo.completed = !todo.completed
-            }
-            return todo
-          })
-        )
-      }
+  useEffect(() => {
+    fetchNotes()
+    // eslint-disable-next-line
+  }, [])
 
-      function addTodo(title) {
-        setTodos(
-          todos.concat([
-            {
-              title,
-              id: Date.now(),
-              completed: false
-            }
-          ])
-        )
-      }
-    
-      function removeTodo(id){
-        setTodos(todos.filter(todo => todo.id !== id))
-      }
-
-    return (
-        <Fragment>
-          <Context.Provider value={{removeTodo}}>
-            <AddTodo onCreate={addTodo} />
-            <hr />
-            <TodoList todos={todos} onToggle={toggleTodo} />
-          </Context.Provider>
-        </Fragment>
-    )
+  return (
+    <Fragment>
+      <Context.Provider >
+        <Modal />
+        <Form />
+        <React.Suspense fallback={<p>Loading....</p>}>
+        </React.Suspense>
+        {loading
+          ? <Loader />
+          : <Notes notes={notes} onRemove={removeNote} />
+        }
+        <hr />
+      </Context.Provider>
+    </Fragment>
+  )
 }

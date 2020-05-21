@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import Context from '../context'
 
@@ -21,33 +21,33 @@ const styles = {
     }
 }
 
-function TodoItem({todo, index, onChange}){
-const {removeTodo} = useContext(Context)
-const classes = []
-if (todo.completed){
-    classes.push('done')
-}
-return (
+function TodoItem({ note, index, onChange }) {
+    const { removeTodo } = useContext(Context)
+    const classes = []
+    if (note.completed) {
+        classes.push('done')
+    }
+    return (
         <li style={styles.li}>
             <span className={classes.join(' ')}>
-                <input 
-                type="checkbox" 
-                checked = {todo.completed}
-                style={styles.input} 
-                onChange={() => onChange(todo.id)} 
+                <input
+                    type="checkbox"
+                    checked={note.completed}
+                    style={styles.input}
+                    onChange={() => onChange(note.id)}
                 />
                 <strong>{index + 1}</strong>
                 &nbsp;
-                <strong style={styles.strong}>{todo.title}</strong>
+                <strong style={styles.strong}>{note.title}</strong>
                 <small>{new Date().toLocaleDateString()}</small>
             </span>
-            <button className='btn btn-danger btn-sm' onClick={removeTodo.bind(null, todo.id)}>&times;</button>
+            <button className='btn btn-danger btn-sm' onClick={removeTodo.bind(null, note.id)}>&times;</button>
         </li>
     )
 }
 
 TodoItem.propTypes = {
-    todo: PropTypes.object.isRequired,
+    note: PropTypes.object.isRequired,
     index: PropTypes.number,
     onChange: PropTypes.func.isRequired,
 }
