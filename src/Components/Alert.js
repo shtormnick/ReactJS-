@@ -1,9 +1,9 @@
-import React, {useContext} from 'react'
-import {CSSTransition} from 'react-transition-group'
+import React, { useContext } from 'react'
+import { CSSTransition } from 'react-transition-group'
 import { AlertContext } from '../Context/Alert/alertContext'
 
 export const Alert = () => {
-    const {alert, hide} = useContext(AlertContext)
+    const { alert, hide } = useContext(AlertContext)
 
     return (
         <CSSTransition
@@ -17,12 +17,12 @@ export const Alert = () => {
             unmountOnExit
         >
             <div className={`alert alert-${alert.type || 'warning'} alert-dismissible`}>
-                <strong>Attention!</strong> 
+                <strong>Attention!</strong>
                 &nbsp;{alert.text}
-                <button onClick={hide} type="button" className="close"  aria-label="Close">
+                <button onClick={hide} type="button" className="close" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         </CSSTransition>
-    )   
+    )
 }

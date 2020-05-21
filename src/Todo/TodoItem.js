@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import Context from '../context'
 
@@ -21,20 +21,20 @@ const styles = {
     }
 }
 
-function TodoItem({note, index, onChange}){
-const {removeTodo} = useContext(Context)
-const classes = []
-if (note.completed){
-    classes.push('done')
-}
-return (
+function TodoItem({ note, index, onChange }) {
+    const { removeTodo } = useContext(Context)
+    const classes = []
+    if (note.completed) {
+        classes.push('done')
+    }
+    return (
         <li style={styles.li}>
             <span className={classes.join(' ')}>
-                <input 
-                type="checkbox" 
-                checked = {note.completed}
-                style={styles.input} 
-                onChange={() => onChange(note.id)} 
+                <input
+                    type="checkbox"
+                    checked={note.completed}
+                    style={styles.input}
+                    onChange={() => onChange(note.id)}
                 />
                 <strong>{index + 1}</strong>
                 &nbsp;

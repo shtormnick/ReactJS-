@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
-import {AlertContext} from '../Context/Alert/alertContext'
-import{FirebaseContext} from '../Context/FireBase/firebaseContext'
+import { AlertContext } from '../Context/Alert/alertContext'
+import { FirebaseContext } from '../Context/FireBase/firebaseContext'
 
-function useInputValue (defaultValue = '') {
+function useInputValue(defaultValue = '') {
     const [value, setValue] = useState(defaultValue)
 
     return {
@@ -22,7 +22,7 @@ export const Form = () => {
 
     const submitHandler = event => {
         event.preventDefault()
-        
+
         if (input.value().trim()) {
             firebase.addNote(input.value().trim()).then(() => {
                 alert.show('Заметка была создана', 'success')
@@ -35,15 +35,15 @@ export const Form = () => {
         }
     }
 
-    return(
+    return (
         <form onSubmit={submitHandler}>
             <div className='form-group'>
-                <input 
+                <input
                     {...input.bind}
                     type='text'
                     className='form-control'
                     placeholder='Введите название заметки'
-                    
+
                 />
             </div>
         </form>

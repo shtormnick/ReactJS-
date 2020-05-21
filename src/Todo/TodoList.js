@@ -3,28 +3,28 @@ import PropTypes from 'prop-types'
 import TodoItem from './TodoItem'
 
 const styles = {
-    ul:{
+    ul: {
         listStyle: 'none',
         margin: 0,
         padding: 0
     }
 }
 
-const TodoList = ({props, notes}) => {
+const TodoList = ({ props, notes }) => {
     return (
         <ul style={styles.ul}>
-            { props.notes.map((note, index) => {
+            {props.notes.map((note, index) => {
                 return (
-                    <TodoItem 
-                    note={note} 
-                    key={note.id} 
-                    index={index} 
+                    <TodoItem
+                        note={note}
+                        key={note.id}
+                        index={index}
                     />
                 )
             })
             }
         </ul>
-        
+
     )
 }
 

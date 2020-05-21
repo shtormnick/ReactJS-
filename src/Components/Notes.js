@@ -1,9 +1,9 @@
-import React, {useContext} from 'react'
-import {CSSTransition, TransitionGroup} from 'react-transition-group'
+import React, { useContext } from 'react'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { AlertContext } from '../Context/Alert/alertContext'
 
 
-export const Notes = ({notes, onRemove}) => {
+export const Notes = ({ notes, onRemove }) => {
     const alert = useContext(AlertContext)
 
     function buttonHandler(note) {
@@ -11,9 +11,9 @@ export const Notes = ({notes, onRemove}) => {
         alert.show('Заметка была удалена', 'danger')
     }
 
-    return(
+    return (
         <TransitionGroup component='ul' className='list-group'>
-            { notes.map(note => (
+            {notes.map(note => (
                 <CSSTransition
                     key={note.id}
                     classNames={'note'}

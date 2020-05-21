@@ -1,10 +1,10 @@
-import React, { useState, useContext} from 'react'
+import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { AlertContext } from '../Context/Alert/alertContext'
 import { FirebaseContext } from '../Context/FireBase/firebaseContext'
 
 
-function useInputValue (defaultValue = '') {
+function useInputValue(defaultValue = '') {
     const [value, setValue] = useState(defaultValue)
 
     return {
@@ -17,38 +17,38 @@ function useInputValue (defaultValue = '') {
     }
 }
 
-function AddTodo({onCreate}){
+function AddTodo({ onCreate }) {
     const input = useInputValue('')
     const alert = useContext(AlertContext)
     const firebase = useContext(FirebaseContext)
 
     function submitHandler(event) {
         event.preventDefault()
-        
+
         if (input.value().trim()) {
-            firebase.addNote(input.value.trim).then(() =>{
+            firebase.addNote(input.value.trim).then(() => {
                 alert.show('Заметка была создана', 'success')
             }).catch(() => {
                 alert.show('Что-то пошло не так', 'danger')
             })
             onCreate(input.value())
-             input.clear()
+            input.clear()
         } else {
             alert.show('Введите название заметки', 'success')
-        }     
+        }
     }
 
-    return(
-        <form style={{marginBottom: '1rem'}} onSubmit={submitHandler}>
+    return (
+        <form style={{ marginBottom: '1rem' }} onSubmit={submitHandler}>
             <input {...input.bind}
-                type='text' 
-                className='form-control' 
-                placeholder='Введите название заметки' 
+                type='text'
+                className='form-control'
+                placeholder='Введите название заметки'
             />
             <button type='submit'>Add todos</button>
         </form>
     )
-} 
+}
 
 AddTodo.propTypes = {
     onCreate: PropTypes.func.isRequired
